@@ -1,0 +1,81 @@
+policy_module(odinycoin, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type odinycoin_t;
+type odinycoin_exec_t;
+init_daemon_domain(odinycoin_t, odinycoin_exec_t)
+
+permissive odinycoin_t;
+
+type odinycoin_initrc_exec_t;
+init_script_file(odinycoin_initrc_exec_t)
+
+type odinycoin_conf_t;
+files_type(odinycoin_conf_t)
+
+type odinycoin_var_lib_t;
+files_type(odinycoin_var_lib_t)
+
+type odinycoin_var_run_t;
+files_type(odinycoin_var_run_t)
+
+type odinycoin_port_t;
+corenet_port(odinycoin_port_t)
+
+########################################
+#
+# odinycoin local policy
+#
+allow odinycoin_t self:process { fork };
+
+allow odinycoin_t self:fifo_file rw_fifo_file_perms;
+allow odinycoin_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(odinycoin_t, odinycoin_conf_t, odinycoin_conf_t)
+manage_files_pattern(odinycoin_t, odinycoin_conf_t, odinycoin_conf_t)
+
+manage_dirs_pattern(odinycoin_t, odinycoin_var_lib_t, odinycoin_var_lib_t)
+manage_files_pattern(odinycoin_t, odinycoin_var_lib_t, odinycoin_var_lib_t)
+files_var_lib_filetrans(odinycoin_t, odinycoin_var_lib_t, { dir file })
+
+manage_dirs_pattern(odinycoin_t, odinycoin_var_run_t, odinycoin_var_run_t)
+manage_files_pattern(odinycoin_t, odinycoin_var_run_t, odinycoin_var_run_t)
+
+sysnet_dns_name_resolve(odinycoin_t)
+corenet_all_recvfrom_unlabeled(odinycoin_t)
+
+allow odinycoin_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(odinycoin_t)
+corenet_tcp_sendrecv_generic_node(odinycoin_t)
+corenet_tcp_sendrecv_all_ports(odinycoin_t)
+corenet_tcp_bind_generic_node(odinycoin_t)
+
+gen_require(`
+    type odinycoin_port_t;
+')
+allow odinycoin_t odinycoin_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type odinycoin_port_t;
+')
+allow odinycoin_t odinycoin_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(odinycoin_t)
+
+files_read_etc_files(odinycoin_t)
+
+miscfiles_read_localization(odinycoin_t)
+
+sysnet_dns_name_resolve(odinycoin_t)
+
+allow odinycoin_t odinycoin_exec_t:file execute_no_trans;
+allow odinycoin_t self:process setsched;
+corecmd_exec_ls(odinycoin_t)
+corenet_tcp_connect_http_port(odinycoin_t)
+dev_read_urand(odinycoin_t)
+fs_getattr_xattr_fs(odinycoin_t)
+kernel_read_system_state(odinycoin_t)

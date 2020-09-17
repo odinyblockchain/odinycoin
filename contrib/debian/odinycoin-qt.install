@@ -1,0 +1,6 @@
+usr/local/bin/odinycoin-qt usr/bin
+share/pixmaps/odinycoin32.xpm usr/share/pixmaps
+share/pixmaps/odinycoin16.xpm usr/share/pixmaps
+share/pixmaps/odinycoin128.png usr/share/pixmaps
+debian/odinycoin-qt.desktop usr/share/applications
+debian/odinycoin-qt.protocol usr/share/kde4/services/

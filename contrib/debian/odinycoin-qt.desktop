@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Name=Odinycoin Core
+Comment=Odinycoin P2P Cryptocurrency
+Exec=odinycoin-qt %u
+Terminal=false
+Type=Application
+Icon=odinycoin128
+MimeType=x-scheme-handler/odinycoin;
+Categories=Office;Finance;
+StartupWMClass=Odinycoin-qt
+Name[en_US]=odinycoin-qt.desktop
