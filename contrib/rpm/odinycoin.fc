@@ -1,0 +1,8 @@
+/usr/bin/odinycoin-cli		--	gen_context(system_u:object_r:odinycoin_exec_t,s0)
+/usr/sbin/odinycoind		--	gen_context(system_u:object_r:odinycoin_exec_t,s0)
+/usr/lib(64)?/odinycoin/odinycoind		--	gen_context(system_u:object_r:odinycoin_exec_t,s0)
+
+/etc/odinycoin(/.*)?		gen_context(system_u:object_r:odinycoin_conf_t,s0)
+/var/lib/odinycoin(/.*)?		gen_context(system_u:object_r:odinycoin_var_lib_t,s0)
+
+(/var)?/run/odinycoind(/.*)?   gen_context(system_u:object_r:odinycoin_var_run_t,s0)
